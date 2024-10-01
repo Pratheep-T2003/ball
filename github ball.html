@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="border: 3px solid black;
+    height: 550px;
+    width: 1099px;
+    border-radius: 80;"></div>
+    <script> 
+        function create(){
+            var part=document.createElement('div')
+            let color=randomColor()
+            part.style.top='50px';
+            part.style.left='50px';
+            part.style.width='50px';
+            part.style.height='50px';
+            part.style.background=color;
+            part.style.borderRadius='50%';
+            part.style.borderColor = "black";
+            part.style.position='absolute';
+            document.body.appendChild(part)
+            return part
+        }
+        function randomColor(){
+            let palet=["red","blue","green","skyblue"]
+            let color=palet[Math.floor(Math.random()*4)]
+            return color
+        }
+        let arr=[]
+        for(let i=0;i<10;i++){
+            arr.push(create())
+        }
+        let positionsX = [];
+        let positionsY = [];
+        let velocitiesX = [];
+        let velocitiesY = [];
+        for(let i=0;i<arr.length;i++){
+            positionsX[i]=Math.floor(Math.random()* (1080-50)+50);
+            positionsY[i]=Math.floor(Math.random()* (500-50)+50);
+            velocitiesX[i]=Math.floor(Math.random()*(5-(-5))+(-5));
+            velocitiesY[i]=Math.floor(Math.random()*(5-(-5))+(-5));
+        }
+        
+        function move()
+        {
+            for(let i=0;i<arr.length;i++){
+                positionsX[i]+=velocitiesX[i];
+                positionsY[i]+=velocitiesY[i];
+                arr[i].style.left=positionsX[i]+'px';
+                arr[i].style.top=positionsY[i]+'px';
+                
+                if(positionsX[i]>1080 || positionsX[i]<0){
+                    velocitiesX[i]*=-1;
+                }
+                if(positionsY[i]>500 || positionsY[i]<0){
+                    velocitiesY[i]*=-1;
+                }
+                
+            }
+        }    
+        setInterval(move, 16);
+    </script>
+</body>
+</html>
